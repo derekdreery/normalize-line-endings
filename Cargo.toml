@@ -1,0 +1,12 @@
+[package]
+name = "normalize-line-endings"
+description = "Takes an iterator over chars and returns a new iterator with all line endings as \\r, \\n, or \\r\\n"
+documentation = "https://derekdreery.github.io/normalize-line-endings/index.html"
+repository = "https://github.com/derekdreery/normalize-line-endings"
+readme = "./README.md"
+keywords = ["chars", "line", "ending", "normalize"]
+license = "APACHE2"
+version = "0.1.0"
+authors = ["Richard Dodd <richdodj@gmail.com>"]
+
+[dependencies]
