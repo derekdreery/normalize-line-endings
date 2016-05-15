@@ -61,17 +61,17 @@ impl<I: Iterator<Item=char>> Iterator for Normalized<I> {
     }
 }
 
+// tests
 #[cfg(test)]
 mod tests {
     use std::io::prelude::*;
-    use super::normalized;
     use std::iter::FromIterator;
 
     #[test]
-    fn normalize() {
+    fn normalized() {
         let input = "This is a string \n with \r some \n\r\n random newlines\r\r\n\n";
         assert_eq!(
-            &String::from_iter(normalized(input.chars())),
+            &String::from_iter(super::normalized(input.chars())),
             "This is a string \n with \n some \n\n random newlines\n\n\n"
         );
     }

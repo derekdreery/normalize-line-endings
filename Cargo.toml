@@ -6,7 +6,7 @@ repository = "https://github.com/derekdreery/normalize-line-endings"
 readme = "./README.md"
 keywords = ["chars", "line", "ending", "normalize"]
 license = "Apache-2.0"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["Richard Dodd <richdodj@gmail.com>"]
 
 [dependencies]
