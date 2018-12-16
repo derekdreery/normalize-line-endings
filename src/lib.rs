@@ -8,10 +8,9 @@
 /// This struct wraps a `std::io::Chars` to normalize line endings.
 ///
 /// Implements `Iterator<Item=char>` so can be used in place
-pub struct Normalized<I>
-where I: Iterator<Item=char> {
+struct Normalized<I> {
     iter: I,
-    prev_was_cr: bool
+    prev_was_cr: bool,
 }
 
 /// Take a Chars and return similar struct with normalized line endings
@@ -27,12 +26,18 @@ where I: Iterator<Item=char> {
 ///     "This is a string \n with \n some \n\n random newlines\n\n\n"
 /// );
 /// ```
-pub fn normalized<I>(iter: I) -> Normalized<I>
-where I: Iterator<Item=char> {
-    Normalized { iter: iter, prev_was_cr: false }
+#[inline]
+pub fn normalized(iter: impl Iterator<Item = char>) -> impl Iterator<Item = char> {
+    Normalized {
+        iter,
+        prev_was_cr: false,
+    }
 }
 
-impl<I: Iterator<Item=char>> Iterator for Normalized<I> {
+impl<I> Iterator for Normalized<I>
+where
+    I: Iterator<Item = char>,
+{
     type Item = char;
     fn next(&mut self) -> Option<char> {
         match self.iter.next() {
@@ -42,17 +47,17 @@ impl<I: Iterator<Item=char>> Iterator for Normalized<I> {
                     Some('\r') => {
                         self.prev_was_cr = true;
                         Some('\n')
-                    },
+                    }
                     any => {
                         self.prev_was_cr = false;
                         any
                     }
                 }
-            },
+            }
             Some('\r') => {
                 self.prev_was_cr = true;
                 Some('\n')
-            },
+            }
             any => {
                 self.prev_was_cr = false;
                 any
@@ -64,7 +69,6 @@ impl<I: Iterator<Item=char>> Iterator for Normalized<I> {
 // tests
 #[cfg(test)]
 mod tests {
-    use std::io::prelude::*;
     use std::iter::FromIterator;
 
     #[test]
